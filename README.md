@@ -2,7 +2,7 @@
 
 ## Artificial Neural Net
 
-Implementation of feed forward artificial neural net with back propagation algorithm for supervised learning.
+Implementation of feed forward artificial neural net in c++(c++11) with back propagation algorithm for supervised learning.
 
 
 ###API:
@@ -42,7 +42,7 @@ sizes must be same!
 */
 net.updateNNWeights({0.5, 1.0, 0.65});
 ```
-+ Number of weights
++ Number of weights:
   * unsigned WeightsCount() const;
 ```c++
 /*get number of weights in nn*/
