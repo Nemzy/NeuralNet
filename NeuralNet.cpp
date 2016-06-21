@@ -207,6 +207,11 @@ void NeuralNet::updateNNWeights(const std::vector<double> & new_weights)
     }
 }
 
+unsigned NeuralNet::WeightsCount() const
+{
+    return size();
+}
+
 unsigned NeuralNet::size() const
 {
     unsigned count = 0;

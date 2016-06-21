@@ -50,6 +50,8 @@ public:
     void backProp(const std::vector<TrainingExample> & examples, double tol, double alpha);
     void updateNNWeights(const std::vector<double> & new_weights);
     
+    unsigned WeightsCount() const;
+    
 private:
     
     std::vector<Layer> m_layers;
