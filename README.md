@@ -7,7 +7,7 @@ Implementation of feed forward artificial neural net with back propagation algor
 
 ###API:
 1. Make new Neural Net:
-⋅⋅* NeuralNet(const std::vector<unsigned> & topology); 
+  * NeuralNet(const std::vector<unsigned> & topology); 
 ```c++
 /*makes new net with 2 input neurons,
                      4 hidden neurons,
