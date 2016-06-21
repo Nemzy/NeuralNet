@@ -131,13 +131,13 @@ void NeuralNet::backProp(const std::vector<TrainingExample> & examples, double t
             
             std::vector<double> deltaWeight;
             std::vector<double> delta;
+            std::vector<double> prevDelta;
             target = (*ex).m_outputs.cbegin();
             
             //for all layers
             for(int layer = m_layers.size() - 1; layer >= 0; --layer)
             {
-                double sum = std::accumulate(delta.cbegin(), delta.cend(), 0.0);
-                delta.clear();
+                prevDelta = std::move(delta);
                 //for all neurons in current layer
                 for(unsigned neuron = 0; neuron < m_layers[layer].size(); neuron++)
                 {
@@ -149,9 +149,16 @@ void NeuralNet::backProp(const std::vector<TrainingExample> & examples, double t
                         delta.push_back(d);
                     }
                     else //for hidden layer
-                    {
-                        double d = sum;
-                        d *= m_layers[layer][neuron].m_output * m_layers[layer][neuron].m_output * (1 - m_layers[layer][neuron].m_output);
+                    {   
+                        double sum = 0.0;
+                        int count = 0;
+                        for(auto deltaIter = prevDelta.cbegin(); deltaIter != prevDelta.cend(); deltaIter++)
+                        {
+                            sum += *deltaIter * m_layers[layer+1][count].m_weights[neuron];
+                            count++;
+                        }
+                        
+                        double d = sum * m_layers[layer][neuron].m_output * (1 - m_layers[layer][neuron].m_output);
                         delta.push_back(d);
                     }
                     //for every weight in current neuron
@@ -172,7 +179,7 @@ void NeuralNet::backProp(const std::vector<TrainingExample> & examples, double t
                 }
             }
             
-            //update weight
+            //update weights
             auto iter = deltaWeight.cbegin();
             
             for(int layer = m_layers.size() - 1; layer >= 0; layer--)
