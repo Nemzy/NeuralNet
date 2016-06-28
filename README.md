@@ -58,7 +58,7 @@ unsigned n = net.WeightsCount();
   * static void serialize(const std::string & file_path, const NeuralNet & net);
   * static NeuralNet deserialize(const std::string & file_path);
 ```c++
-/*serialize nn 'net' in file Net.txt/*
+/*serialize nn 'net' in file Net.txt*/
 NeuralNet::serialize("Net.txt", net);
 
 /*deserialize nn from file Net.txt*/
