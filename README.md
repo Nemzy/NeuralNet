@@ -7,8 +7,8 @@ Implementation of feed forward artificial neural net in c++(c++11) with back pro
 
 ### HOW TO USE:
 Just download header file NeuralNet.h and one of the libraries from lib directory:
-+ libann.a (static linkinkg)
-+ libann.so (dynamic linkinkg)
++ libann.a (static linking)
++ libann.so (dynamic linking)
 
 
 ### API:
