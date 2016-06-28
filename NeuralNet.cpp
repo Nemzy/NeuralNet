@@ -227,6 +227,80 @@ unsigned NeuralNet::size() const
     return count;
 }
 
+void NeuralNet::serialize(const std::string & file_path, const NeuralNet & net)
+{
+    std::ofstream out(file_path);
+    
+    if(out.is_open())
+    {
+        std::vector<unsigned> topology;
+        
+        topology.push_back(net.m_layers[0][0].m_weights.size()-1);
+        
+        for(auto layer = net.m_layers.cbegin(); layer != net.m_layers.cend(); layer++)
+        {
+            topology.push_back((*layer).size());
+            
+            for(auto neuron = (*layer).cbegin(); neuron != (*layer).cend(); neuron++)
+            {
+                for(auto weight = (*neuron).m_weights.cbegin(); weight != (*neuron).m_weights.cend(); weight++)
+                    out << *weight << " ";
+                    
+                out << std::endl;
+            }
+        }
+        
+        out << "[ ";
+        
+        for(auto i = topology.cbegin(); i != topology.cend(); i++)
+        {
+            out << *i << " ";
+        }
+        
+        out << "]" << std::endl;
+    }
+    else throw std::invalid_argument("Unable to open file!");
+}
+
+NeuralNet NeuralNet::deserialize(const std::string & file_path)
+{
+    std::ifstream in(file_path);
+    
+    if(in.is_open())
+    {
+        std::vector<unsigned> topology;
+        std::vector<double> weights;
+        std::vector<std::string> numbers;
+        
+        while(in)
+        {
+            numbers.push_back("");
+            std::getline(in, numbers.back(), ' ');
+        }
+    
+        bool ind = true;
+        for(auto i = numbers.cbegin(); i != numbers.cend(); i++)
+        {
+            if(*i == "\n["){
+                ind = false;
+                continue;
+            }
+            
+            if(*i == "]\n") break;
+            
+            if(ind)
+                weights.push_back(std::stod(*i));
+            else topology.push_back(std::stoul(*i));
+        }
+        
+        NeuralNet net(topology);
+        net.updateNNWeights(weights);
+        
+        return net;
+    }
+    else throw std::invalid_argument("Unable to open file!");
+}
+
 std::ostream& operator<< (std::ostream& out, const NeuralNet & net)
 {
     

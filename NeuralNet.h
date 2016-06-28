@@ -2,12 +2,14 @@
 #define NEURAL_NET
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <random>
 #include <stdexcept>
 #include <cmath>
 #include <utility>
 #include <algorithm>
+#include <string>
 
 class Neuron;
 class NeuralNet;
@@ -51,6 +53,9 @@ public:
     void updateNNWeights(const std::vector<double> & new_weights);
     
     unsigned WeightsCount() const;
+    
+    static void serialize(const std::string & file_path, const NeuralNet & net);
+    static NeuralNet deserialize(const std::string & file_path);
     
 private:
     
