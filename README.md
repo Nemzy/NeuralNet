@@ -54,3 +54,13 @@ net.updateNNWeights({0.5, 1.0, 0.65});
 /*get number of weights in nn*/
 unsigned n = net.WeightsCount();
 ```
++ Serialization/Deserialization of Neural Net:
+  * static void serialize(const std::string & file_path, const NeuralNet & net);
+  * static NeuralNet deserialize(const std::string & file_path);
+```c++
+/*serialize nn 'net' in file Net.txt/*
+NeuralNet::serialize("Net.txt", net);
+
+/*deserialize nn from file Net.txt*/
+NeuralNet net2 = NeuralNet::deserialize("Net.txt");
+```
