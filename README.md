@@ -5,7 +5,13 @@
 Implementation of feed forward artificial neural net in c++(c++11) with back propagation algorithm for supervised learning.
 
 
-###API:
+### HOW TO USE:
+Just download header file NeuralNet.h and one of the libraries from lib directory:
++ libann.a (static linkinkg)
++ libann.so (dynamic linkinkg)
+
+
+### API:
 + Make new Neural Net:
   * NeuralNet(const std::vector<unsigned> & topology); 
 ```c++
